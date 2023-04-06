@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=2.0">
+  <meta charset="UTF-8">
+  <link rel="shortcut icon" type="image/jpg" href="images/Slot Machine.jpg">
+  <link rel="stylesheet" type="text/css" href="css/classStyles.css">
+  <link rel="stylesheet" type="text/css" href="css/idStyles.css">
+
+  <title>Slot Machine</title>
+
+</head>
+<body>
+  
+  <div class="container">
+    <img src="images/Machine.png" height="600" width="400" alt="Machine">
+    <div class="slots-container"> 
+      <img class="whitebackground" src="images/White Background.png" height="200" width="330" alt="White">
+      <img class="slot3" src="images/slot handler.png" height="200" width="150" alt="Slot 3">  
+      <img class="slot2" src="images/slot handler.png" height="200" width="150" alt="Slot 2">
+      <img class="slot1" src="images/slot handler.png" height="200" width="150" alt="Slot 1">
+      <img src="images/Handle.png" class="handle" height="200" width="50" alt="Handle">
+    </div>
+    
+  </div>
+
+<script src="js/Slots.js"></script>
+
+<div class="sidebar">
+  <h2>Ways to Win</h2>
+  <ul>
+    <li><img src="images/slot6.png" height="20" width="15" alt="Slot6"><img src="images/slot6.png" height="20" width="15" alt="Slot6"><img src="images/slot2.png" height="20" width="15" alt="Slot2"> = x4</li>
+    <li><img src="images/slot6.png" height="20" width="15" alt="Slot6"><img src="images/slot6.png" height="20" width="15" alt="Slot6"><img src="images/slot6.png" height="20" width="15" alt="Slot6"> = x5</li>
+   
+    <li><img src="images/slot3.png" height="20" width="15" alt="Slot3"><img src="images/slot3.png" height="20" width="15" alt="Slot3"><img src="images/slot2.png" height="20" width="15" alt="Slot2"> = x8</li>
+    <li><img src="images/slot3.png" height="20" width="15" alt="Slot3"><img src="images/slot3.png" height="20" width="15" alt="Slot3"><img src="images/slot3.png" height="20" width="15" alt="Slot3"> = x9</li>
+   
+    <li><img src="images/slot2.png" height="20" width="15" alt="Slot2"><img src="images/slot2.png" height="20" width="15" alt="Slot2"><img src="images/slot2.png" height="20" width="15" alt="Slot2"> = x80</li>
+
+    <li><img src="images/slot5.png" height="20" width="15" alt="Slot5"><img src="images/slot5.png" height="20" width="15" alt="Slot5"><img src="images/slot2.png" height="20" width="15" alt="Slot2"> = x90</li>
+    <li><img src="images/slot5.png" height="20" width="15" alt="Slot5"><img src="images/slot5.png" height="20" width="15" alt="Slot5"><img src="images/slot5.png" height="20" width="15" alt="Slot5"> = x100</li>
+   
+    <li><img src="images/slot4.png" height="20" width="15" alt="Slot4"><img src="images/slot4.png" height="20" width="15" alt="Slot4"><img src="images/slot2.png" height="20" width="15" alt="Slot2"> = x150</li>
+    <li><img src="images/slot4.png" height="20" width="15" alt="Slot4"><img src="images/slot4.png" height="20" width="15" alt="Slot4"><img src="images/slot4.png" height="20" width="15" alt="Slot4"> = x200</li>
+
+    <li><img src="images/slot1.png" height="20" width="15" alt="Slot1"> = x2</li>
+    <li><img src="images/slot1.png" height="20" width="15" alt="Slot1"><img src="images/slot1.png" height="20" width="15" alt="Slot1"> = x70</li>
+    <li><img src="images/slot1.png" height="20" width="15" alt="Slot1"><img src="images/slot1.png" height="20" width="15" alt="Slot1"><img src="images/slot1.png" height="20" width="15" alt="Slot1"> = x500</li>
+  </ul>
+
+  <footer>
+    <div class="footer-left">
+      <button id="bet-button">Place Bet</button>
+      <input type="number" min="0" id="betsize" value="1" name="betsize">
+    </div>
+    <div class="footer-center">
+      <span id="win-display"></span>
+      </div>
+    <div class="footer-right">
+      <span>$</span><span id="money-display"></span>
+    </div>
+   
+  </footer>
+</div>
+<div class="bg-image1"></div>
+<div class="bg-image"></div>
+</body>  
+
+</html>
