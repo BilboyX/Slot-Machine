@@ -46,6 +46,7 @@ betsizeInput.addEventListener('input', () => {
 
   function Roll() {
     SlotOn = true;
+    
     slotsSpinning = 3;
   
     money = money - bet
