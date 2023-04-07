@@ -53,12 +53,12 @@
       <button id="bet-button">Place Bet</button>
       <input type="number" min="1" id="betsize" value="1" name="betsize">
     </div>
-    <button onclick="ez()" id="debt-button">Deal</button>
+    <button onclick="ez(), debtM.pause()" id="debt-button">Deal</button>
     <div class="footer-center">
       <span id="win-display"></span>
       </div>
     <div class="footer-right">
-      <span>Balance: $</span><span id="money-display"></span>
+      <span>Balance: $</span><span id="money-display"></span><br>
       <span>Debt: -$</span><span id="debt-display"></span>
     </div>
    

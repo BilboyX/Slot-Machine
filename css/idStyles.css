@@ -43,6 +43,7 @@
   }
 
   #win-display {
-    font-size: 20px;
+    font-size: 18px;
     margin-right: 475px;
+    font-weight: bold;
   }
