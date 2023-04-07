@@ -78,7 +78,7 @@ function animateBackground1() {
 document.addEventListener('DOMContentLoaded', function() {
 
 // Retrieve the variable from local storage
-if (localStorage.saved.first !== 1) {
+if (saved.first !== 1) {
 saved = JSON.parse(localStorage.getItem("saved"))
 document.getElementById("debt-display").textContent = saved.debt
 document.getElementById("money-display").textContent = saved.money
