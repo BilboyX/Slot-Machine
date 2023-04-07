@@ -1,5 +1,7 @@
 'use strict';
 
+let saved = {money: 10, debt: 0, bet: 1, betwas: 1, loanNum: 0, first: 1}
+
 function animateBackground3() { 
   document.querySelector(".dark").classList.remove("animate");
   void document.querySelector(".dark").offsetWidth;
@@ -21,11 +23,19 @@ function animateBackground3() {
   document.querySelector("html").classList.add("animate");
   }, 10000);
   setTimeout(() => {
+    saved.money = 10 
+    saved.debt = 0
+    saved.bet = 1 
+    saved.betwas = 1 
+    saved.loanNum = 0
+    saved.first = 1
+    localStorage.setItem("saved", JSON.stringify(saved));
     location.reload(true)
   }, 12000);
 };
 
 var Crank = new Audio('audio/Crank.mp3');
+var Lose = new Audio('audio/Lose.mp3');
 var Defeat = new Audio('audio/Defeat!.mp3');
 var Win = new Audio('audio/Win!.mp3');
 var SlotsRolling = new Audio('audio/Slots Rolling.mp3');
@@ -37,6 +47,7 @@ SlotsRolling.volume = 0.1
 function rollAudio() { 
   Win.pause()
   Defeat.pause()
+  Lose.pause()
   Crank.loop = false,
   Crank.play()
   SlotsRolling.currentTime = 0,
@@ -61,11 +72,10 @@ function animateBackground1() {
   document.getElementById("debt-display").textContent = formatWhole(saved.debt)
   saved.bet = 1
   document.getElementById('betsize').value = 1
+  localStorage.setItem("saved", JSON.stringify(saved));
 };
 
 document.addEventListener('DOMContentLoaded', function() {
-
-  let saved = {money: 10, debt: 0, bet: 1, betwas: 1, loanNum: 0, first: 1}
 
 // Retrieve the variable from local storage
 if (localStorage.saved.first !== 1) {
@@ -140,6 +150,11 @@ function animateBackground4() {
           animateBackground3()
           }
           
+          if (saved.debt < 0) {
+            saved.debt = 0
+            saved.loanNum = 0
+            document.getElementById("debt-display").textContent = 0}
+
     slotsSpinning = 3;
     if (saved.debt > 0) {
       saved.debt = saved.debt + saved.debt * saved.loanNum
@@ -182,10 +197,7 @@ function animateBackground4() {
           document.getElementById('betsize').value = saved.money
           saved.bet = saved.money
         }
-        if (saved.debt < 1)
-        saved.debt = 0
-        saved.loanNum = 0
-        document.getElementById("debt-display").textContent = 0
+      
         // Save a variable to local storage
 localStorage.setItem("saved", JSON.stringify(saved));
       });
@@ -419,6 +431,7 @@ localStorage.setItem("saved", JSON.stringify(saved));
             saved.bet = saved.bet * 4
             saved.money = saved.bet + saved.money
           }
+
           document.getElementById("win-display").textContent = "You just won x4!!!"
           document.getElementById('betsize').value =  saved.betwas
           saved.bet = saved.betwas
@@ -454,16 +467,24 @@ localStorage.setItem("saved", JSON.stringify(saved));
         // Save a variable to local storage
 localStorage.setItem("saved", JSON.stringify(saved));
 
+if (saved.money > 0) {
+Lose.loop = false;
+Lose.currentTime = 0
+  Lose.play()
+}
+
           //loan shark
           if (saved.money < 1 && saved.loanNum === 0.05) {
             Defeat.currentTime = 30
+            Lose.pause()
             Defeat.play()
           animateBackground3()
           }
 
           if (saved.money < 1 && saved.loanNum === 0.01) {
             saved.loanNum = 0.05
-            Defeat.pause()
+            localStorage.setItem("saved", JSON.stringify(saved));
+            Lose.pause()
             debtM.loop = true;
             debtM.play()
             animateBackground(document.querySelector(".bg-image2"))
@@ -476,7 +497,8 @@ localStorage.setItem("saved", JSON.stringify(saved));
 
           if (saved.money < 1 && saved.loanNum === 0) {
             saved.loanNum = 0.01
-            Defeat.pause()
+            localStorage.setItem("saved", JSON.stringify(saved));
+            Lose.pause()
             debtM.loop = true;
             debtM.play()
             animateBackground(document.querySelector(".bg-image2"))
@@ -484,8 +506,6 @@ localStorage.setItem("saved", JSON.stringify(saved));
             animateBackground4()
             document.getElementById("win-display").textContent = "Loan Shark: Hey'a pal. I noticed youse are down quite a bit. How 'bouts I string ya a deal? I'll give youse a free $1000! All youse gotta do is pay it back. Now time is money so let's say I's increase that debt of yours by 1% per spin? We got a deal?"
           }
-
-  
   }
 
 
