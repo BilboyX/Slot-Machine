@@ -44,11 +44,6 @@ function rollAudio() {
   SlotsRolling.play()
 }
 
-var money = 10;
-  var debt = 0;
-  var bet = 1;
-  var betwas = 1;
-  
 function animateBackground1() {
   document.querySelector(".bg-image2").classList.remove("animate1");
   void document.querySelector(".bg-image2").offsetWidth;
@@ -60,31 +55,41 @@ function animateBackground1() {
   void  document.querySelector(".container").offsetWidth;
   document.querySelector(".container").classList.add("animate1");
   document.getElementById("win-display").textContent = "Loan Shark: Good"
-  debt = debt + 1000
-  money = 1000
-  document.getElementById("money-display").textContent = money
-  document.getElementById("debt-display").textContent = formatWhole(debt)
-  bet = 1
+  saved.debt = saved.debt + 1000
+  saved.money = 1000
+  document.getElementById("money-display").textContent = saved.money
+  document.getElementById("debt-display").textContent = formatWhole(saved.debt)
+  saved.bet = 1
   document.getElementById('betsize').value = 1
 };
 
 document.addEventListener('DOMContentLoaded', function() {
+
+  let saved = {money: 10, debt: 0, bet: 1, betwas: 1, loanNum: 0, first: 1}
+
+// Retrieve the variable from local storage
+if (localStorage.saved.first !== 1) {
+saved = JSON.parse(localStorage.getItem("saved"))
+document.getElementById("debt-display").textContent = saved.debt
+document.getElementById("money-display").textContent = saved.money
+document.getElementById('betsize').value = saved.bet
+}
+
   var SlotOn = false;
   var slot1Images = ["images/slot1.png", "images/slot2.png", "images/slot3.png", "images/slot4.png", "images/slot5.png", "images/slot6.png"];
   var slot2Images = ["images/slot1.png", "images/slot2.png", "images/slot3.png", "images/slot4.png", "images/slot5.png", "images/slot6.png"];
   var slot3Images = ["images/slot1.png", "images/slot2.png", "images/slot3.png", "images/slot4.png", "images/slot5.png", "images/slot6.png"];
   var inspire = ["There is a very easy way to return from a casino with a small fortune; go there with a large one. - Jack Yelton", "Remember this. The house doesn’t beat the player. It just gives him the opportunity to beat himself – Nicholas Dandalos (professional gambler)", "Gambling. The sure way of getting something for nothing – Wilson Mizner (playwright)", "Gambling undermines the moral fiber of society – Gordon B. Hinkley (religious leader and author)", "The best throw of the dice is to throw them away - English Proverb", "There are two great pleasures in gambling; that of winning and that of losing. – French Proverb", "In a bet there is a fool and a thief  – Unknown", "It's hard to walk away from a winning streak, even harder to leave the table when you're on a losing one ― Cara Bertoia"]
   var requestAnimationFrame = 50; // milliseconds
-  var slotsSpinning = 0;
+  var slotsSpinning = 3;
   var slot1Index = 0;
   var slot2Index = 0;
   var slot3Index = 0;
-  var loanNum = 0;
   
   const debtDisplay = document.getElementById("debt-display");
 const moneyDisplay = document.getElementById("money-display");
-  debtDisplay.textContent = formatWhole(debt);
-moneyDisplay.textContent = money;
+  debtDisplay.textContent = formatWhole(saved.debt);
+moneyDisplay.textContent = saved.money;
 
 const betsizeInput = document.getElementById('betsize');
 betsizeInput.addEventListener('input', () => {
@@ -92,15 +97,15 @@ betsizeInput.addEventListener('input', () => {
   if (SlotOn) {
     document.getElementById('betsize').value
   }
-  if (document.getElementById('betsize').value > money) {
-    document.getElementById('betsize').value = money
+  if (document.getElementById('betsize').value > saved.money) {
+    document.getElementById('betsize').value = saved.money
   }
-  bet = parseInt(document.getElementById('betsize').value);
+  saved.bet = parseInt(document.getElementById('betsize').value);
   if (document.getElementById('betsize').value < 1) {
-    bet = 1
+    saved.bet = 1
   }
   if (document.getElementById('betsize').value === '') {
-    bet = 1
+    saved.bet = 1
   }
 });
 
@@ -124,23 +129,24 @@ function animateBackground4() {
 };
 
   function Roll() {
+    saved.first = 0
     if (document.getElementById('betsize').value < 1) {
       document.getElementById('betsize').value = 1
     }
     SlotOn = true;
     rollAudio()
          //loan shark
-         if (debt > 100000) {
+         if (saved.debt > 100000) {
           animateBackground3()
           }
           
     slotsSpinning = 3;
-    if (debt > 0) {
-      debt = debt + debt * loanNum
+    if (saved.debt > 0) {
+      saved.debt = saved.debt + saved.debt * saved.loanNum
     } 
-    debtDisplay.textContent = formatWhole(debt);
-    money = money - bet
-    moneyDisplay.textContent = money
+    debtDisplay.textContent = formatWhole(saved.debt);
+    saved.money = saved.money - saved.bet
+    moneyDisplay.textContent = saved.money
     document.getElementById("win-display").textContent =''
 
     var handle = document.querySelector('.handle');
@@ -172,14 +178,16 @@ function animateBackground4() {
         slot2Index = slot2.style.backgroundImage;
         slot3Index = slot3.style.backgroundImage;
         stopSpinning();
-        if ( document.getElementById('betsize').value >= money) {
-          document.getElementById('betsize').value = money
-          bet = money
+        if ( document.getElementById('betsize').value >= saved.money) {
+          document.getElementById('betsize').value = saved.money
+          saved.bet = saved.money
         }
-        if (debt < 1)
-        debt = 0
-        loanNum = 0
+        if (saved.debt < 1)
+        saved.debt = 0
+        saved.loanNum = 0
         document.getElementById("debt-display").textContent = 0
+        // Save a variable to local storage
+localStorage.setItem("saved", JSON.stringify(saved));
       });
   }
 
@@ -190,252 +198,252 @@ function animateBackground4() {
         if (slot1Index === `url("images/slot1.png")` || slot2Index === `url("images/slot1.png")` || slot3Index === `url("images/slot1.png")`) {
           if (slot1Index === `url("images/slot1.png")` && slot2Index === `url("images/slot1.png")` || slot2Index === `url("images/slot1.png")` && slot3Index === `url("images/slot1.png")` || slot1Index === `url("images/slot1.png")` && slot3Index === `url("images/slot1.png")`) {
               if (slot1Index === `url("images/slot1.png")` && slot2Index === `url("images/slot1.png")` && slot3Index === `url("images/slot1.png")`) {
-                betwas = bet
-                if (debt > 0) {
-                  money = money + bet
-                  bet = bet * 500
-                  debt = debt - bet
-                  debtDisplay.textContent = formatWhole(debt)
+                saved.betwas = saved.bet
+                if (saved.debt > 0) {
+                  saved.money = saved.money + saved.bet
+                  saved.bet = saved.bet * 500
+                  saved.debt = saved.debt - saved.bet
+                  debtDisplay.textContent = formatWhole(saved.debt)
                 }
       
-                if (debt === 0) { 
-                  bet = bet * 500
-                  money = bet + money
+                if (saved.debt === 0) { 
+                  saved.bet = saved.bet * 500
+                  saved.money = saved.bet + saved.money
                 }
                 document.getElementById("win-display").textContent = "You just won x500!!!"
-                moneyDisplay.textContent = money
-                document.getElementById('betsize').value =  betwas
-                bet = betwas
+                moneyDisplay.textContent = saved.money
+                document.getElementById('betsize').value =  saved.betwas
+                saved.bet = saved.betwas
                 animateBackground(document.querySelector(".bg-image")), Win.play()
                 return
               }
               else if (slot1Index === `url("images/slot1.png")` && slot2Index === `url("images/slot1.png")` || slot2Index === `url("images/slot1.png")` && slot3Index === `url("images/slot1.png")` || slot1Index === `url("images/slot1.png")` && slot3Index === `url("images/slot1.png")`)  
-              betwas = bet
-              if (debt > 0) {
-                money = money + bet
-                bet = bet * 70
-                debt = debt - bet
-                debtDisplay.textContent = formatWhole(debt)
+              saved.betwas = saved.bet
+              if (saved.debt > 0) {
+                saved.money = saved.money + saved.bet
+                saved.bet = saved.bet * 70
+                saved.debt = saved.debt - saved.bet
+                debtDisplay.textContent = formatWhole(saved.debt)
               }
     
-              if (debt === 0) { 
-                bet = bet * 70
-                money = bet + money
+              if (saved.debt === 0) { 
+                saved.bet = saved.bet * 70
+                saved.money = saved.bet + saved.money
               }
               document.getElementById("win-display").textContent = "You just won x70!!!"
-              document.getElementById('betsize').value =  betwas
-              bet = betwas
-              moneyDisplay.textContent = money
+              document.getElementById('betsize').value =  saved.betwas
+              saved.bet = saved.betwas
+              moneyDisplay.textContent = saved.money
               animateBackground(document.querySelector(".bg-image")), Win.play()
               return
           }
           else if (slot1Index === `url("images/slot1.png")` || slot2Index === `url("images/slot1.png")` || slot3Index === `url("images/slot1.png")`) 
-          betwas = bet
-          if (debt > 0) {
-            money = money + bet
-            bet = bet * 2
-            debt = debt - bet
-            debtDisplay.textContent = formatWhole(debt)
+          saved.betwas = saved.bet
+          if (saved.debt > 0) {
+            saved.money = saved.money + saved.bet
+            saved.bet = saved.bet * 2
+            saved.debt = saved.debt - saved.bet
+            debtDisplay.textContent = formatWhole(saved.debt)
           }
 
-          if (debt === 0) {
-            bet = bet * 2
-            money = bet + money
+          if (saved.debt === 0) {
+            saved.bet = saved.bet * 2
+            saved.money = saved.bet + saved.money
           }
           document.getElementById("win-display").textContent = "You just won x2!!!"
-          document.getElementById('betsize').value =  betwas
-          bet = betwas
-          moneyDisplay.textContent = money
+          document.getElementById('betsize').value =  saved.betwas
+          saved.bet = saved.betwas
+          moneyDisplay.textContent = saved.money
           animateBackground(document.querySelector(".bg-image")), Win.play()
           return
         }
 
         //If 3 Bars
         if (slot1Index === `url("images/slot2.png")` && slot2Index === `url("images/slot2.png")` && slot3Index === `url("images/slot2.png")`) {
-          betwas = bet
-          if (debt > 0) {
-            money = money + bet
-            bet = bet * 80
-            debt = debt - bet
-            debtDisplay.textContent = formatWhole(debt)
+          saved.betwas = saved.bet
+          if (saved.debt > 0) {
+            saved.money = saved.money + saved.bet
+            saved.bet = saved.bet * 80
+            saved.debt = saved.debt - saved.bet
+            debtDisplay.textContent = formatWhole(saved.debt)
           }
 
-          if (debt === 0) { 
-            bet = bet * 80
-            money = bet + money
+          if (saved.debt === 0) { 
+            saved.bet = saved.bet * 80
+            saved.money = saved.bet + saved.money
           }
           document.getElementById("win-display").textContent = "You just won x80!!!"
-          document.getElementById('betsize').value =  betwas
-          bet = betwas
-          moneyDisplay.textContent = money
+          document.getElementById('betsize').value =  saved.betwas
+          saved.bet = saved.betwas
+          moneyDisplay.textContent = saved.money
           animateBackground(document.querySelector(".bg-image")), Win.play()
           return
         }
         //If 2 Lemons and 1 Bar
         if (slot1Index === `url("images/slot3.png")` && slot2Index === `url("images/slot3.png")` && slot3Index === `url("images/slot2.png")` || slot1Index === `url("images/slot3.png")` && slot2Index === `url("images/slot2.png")` && slot3Index === `url("images/slot3.png")` || slot1Index === `url("images/slot2.png")` && slot2Index === `url("images/slot3.png")` && slot3Index === `url("images/slot3.png")`) {
-          betwas = bet
-          if (debt > 0) {
-            money = money + bet
-            bet = bet * 8
-            debt = debt - bet
-            debtDisplay.textContent = formatWhole(debt)
+          saved.betwas = saved.bet
+          if (saved.debt > 0) {
+            saved.money = saved.money + saved.bet
+            saved.bet = saved.bet * 8
+            saved.debt = saved.debt - saved.bet
+            debtDisplay.textContent = formatWhole(saved.debt)
           }
 
-          if (debt === 0) { 
-            bet = bet * 8
-            money = bet + money
+          if (saved.debt === 0) { 
+            saved.bet = saved.bet * 8
+            saved.money = saved.bet + saved.money
           }
           document.getElementById("win-display").textContent = "You just won x8!!!"
-          document.getElementById('betsize').value =  betwas
-          bet = betwas
-          moneyDisplay.textContent = money
+          document.getElementById('betsize').value =  saved.betwas
+          saved.bet = saved.betwas
+          moneyDisplay.textContent = saved.money
           animateBackground(document.querySelector(".bg-image")), Win.play()
           return
         }
         //If 3 Lemons
         if (slot1Index === `url("images/slot3.png")` && slot2Index === `url("images/slot3.png")` && slot3Index === `url("images/slot3.png")`) {
-          betwas = bet
-          if (debt > 0) {
-            money = money + bet
-            bet = bet * 9
-            debt = debt - bet
-            debtDisplay.textContent = formatWhole(debt)
+          saved.betwas = saved.bet
+          if (saved.debt > 0) {
+            saved.money = saved.money + saved.bet
+            saved.bet = saved.bet * 9
+            saved.debt = saved.debt - saved.bet
+            debtDisplay.textContent = formatWhole(saved.debt)
           }
 
-          if (debt === 0) {   
-            bet = bet * 9
-            money = bet + money
+          if (saved.debt === 0) {   
+            saved.bet = saved.bet * 9
+            saved.money = saved.bet + saved.money
           }
           document.getElementById("win-display").textContent = "You just won x9!!!"
-          document.getElementById('betsize').value =  betwas
-          bet = betwas
-          moneyDisplay.textContent = money
+          document.getElementById('betsize').value =  saved.betwas
+          saved.bet = saved.betwas
+          moneyDisplay.textContent = saved.money
           animateBackground(document.querySelector(".bg-image")), Win.play()
           return
         }
         //If 2 Watermelons 1 Bar
         if (slot1Index === `url("images/slot4.png")` && slot2Index === `url("images/slot4.png")` && slot3Index === `url("images/slot2.png")`|| slot1Index === `url("images/slot4.png")` && slot2Index === `url("images/slot2.png")` && slot3Index === `url("images/slot4.png")` || slot1Index === `url("images/slot2.png")` && slot2Index === `url("images/slot4.png")` && slot3Index === `url("images/slot4.png")`) {
-          betwas = bet
-          if (debt > 0) {
-            money = money + bet
-            bet = bet * 150
-            debt = debt - bet
-            debtDisplay.textContent = formatWhole(debt)
+          saved.betwas = saved.bet
+          if (saved.debt > 0) {
+            saved.money = saved.money + saved.bet
+            saved.bet = saved.bet * 150
+            saved.debt = saved.debt - saved.bet
+            debtDisplay.textContent = formatWhole(saved.debt)
           }
 
-          if (debt === 0) { 
-            bet = bet * 150
-            money = bet + money
+          if (saved.debt === 0) { 
+            saved.bet = saved.bet * 150
+            saved.money = saved.bet + saved.money
           }
           document.getElementById("win-display").textContent = "You just won x150!!!"
-          document.getElementById('betsize').value =  betwas
-          bet = betwas
-          moneyDisplay.textContent = money
+          document.getElementById('betsize').value =  saved.betwas
+          saved.bet = saved.betwas
+          moneyDisplay.textContent = saved.money
           animateBackground(document.querySelector(".bg-image")), Win.play()
           return
         }
         //If 3 Watermelons
         if (slot1Index === `url("images/slot4.png")` && slot2Index === `url("images/slot4.png")` && slot3Index === `url("images/slot4.png")`) {
-          betwas = bet
-          if (debt > 0) {
-            money = money + bet
-            bet = bet * 200
-            debt = debt - bet    
-            debtDisplay.textContent = formatWhole(debt)
+          saved.betwas = saved.bet
+          if (saved.debt > 0) {
+            saved.money = saved.money + saved.bet
+            saved.bet = saved.bet * 200
+            saved.debt = saved.debt - saved.bet    
+            debtDisplay.textContent = formatWhole(saved.debt)
           }
 
-          if (debt === 0) {  
-            bet = bet * 200
-            money = bet + money
+          if (saved.debt === 0) {  
+            saved.bet = saved.bet * 200
+            saved.money = saved.bet + saved.money
           }
           document.getElementById("win-display").textContent = "You just won x200!!!"
-          document.getElementById('betsize').value =  betwas
-          bet = betwas
-          moneyDisplay.textContent = money
+          document.getElementById('betsize').value =  saved.betwas
+          saved.bet = saved.betwas
+          moneyDisplay.textContent = saved.money
           animateBackground(document.querySelector(".bg-image")), Win.play()
           return
         }
         //If 2 Bells 1 Bar
         if (slot1Index === `url("images/slot5.png")` && slot2Index === `url("images/slot5.png")` && slot3Index === `url("images/slot2.png")`|| slot1Index === `url("images/slot5.png")` && slot2Index === `url("images/slot2.png")` && slot3Index === `url("images/slot5.png")` || slot1Index === `url("images/slot2.png")` && slot2Index === `url("images/slot5.png")` && slot3Index === `url("images/slot5.png")`) {
-          betwas = bet
-          if (debt > 0) {
-            money = money + bet
-            bet = bet * 90
-            debt = debt - bet
-            debtDisplay.textContent = formatWhole(debt)
+          saved.betwas = saved.bet
+          if (saved.debt > 0) {
+            saved.money = saved.money + saved.bet
+            saved.bet = saved.bet * 90
+            saved.debt = saved.debt - saved.bet
+            debtDisplay.textContent = formatWhole(saved.debt)
           }
 
-          if (debt === 0) {
-            bet = bet * 90
-            money = bet + money
+          if (saved.debt === 0) {
+            saved.bet = saved.bet * 90
+            saved.money = saved.bet + saved.money
           }
           document.getElementById("win-display").textContent = "You just won x90!!!"
-          document.getElementById('betsize').value =  betwas
-          bet = betwas
-          moneyDisplay.textContent = money
+          document.getElementById('betsize').value =  saved.betwas
+          saved.bet = saved.betwas
+          moneyDisplay.textContent = saved.money
           animateBackground(document.querySelector(".bg-image")), Win.play()
           return
         }
         //If 3 Bells
         if (slot1Index === `url("images/slot5.png")` && slot2Index === `url("images/slot5.png")` && slot3Index === `url("images/slot5.png")`) {
-          betwas = bet
-          if (debt > 0) {
-            money = money + bet
-            bet = bet * 100
-            debt = debt - bet
-            debtDisplay.textContent = formatWhole(debt)
+          saved.betwas = saved.bet
+          if (saved.debt > 0) {
+            saved.money = saved.money + saved.bet
+            saved.bet = saved.bet * 100
+            saved.debt = saved.debt - saved.bet
+            debtDisplay.textContent = formatWhole(saved.debt)
           }
 
-          if (debt === 0) {   
-            bet = bet * 100
-            money = bet + money
+          if (saved.debt === 0) {   
+            saved.bet = saved.bet * 100
+            saved.money = saved.bet + saved.money
           }
           document.getElementById("win-display").textContent = "You just won x100!!!"
-          document.getElementById('betsize').value =  betwas
-          bet = betwas
-          moneyDisplay.textContent = money
+          document.getElementById('betsize').value =  saved.betwas
+          saved.bet = saved.betwas
+          moneyDisplay.textContent = saved.money
           animateBackground(document.querySelector(".bg-image")), Win.play()
           return
         }
         //If 2 Cherries 1 Bar
         if (slot1Index === `url("images/slot6.png")` && slot2Index === `url("images/slot6.png")` && slot3Index === `url("images/slot2.png")`|| slot1Index === `url("images/slot6.png")` && slot2Index === `url("images/slot2.png")` && slot3Index === `url("images/slot6.png")` || slot1Index === `url("images/slot2.png")` && slot2Index === `url("images/slot6.png")` && slot3Index === `url("images/slot6.png")`) {
-          betwas = bet
-          if (debt > 0) {
-            money = money + bet
-            bet = bet * 4
-            debt = debt - bet
-            debtDisplay.textContent = formatWhole(debt)
+          saved.betwas = saved.bet
+          if (saved.debt > 0) {
+            saved.money = saved.money + saved.bet
+            saved.bet = saved.bet * 4
+            saved.debt = saved.debt - saved.bet
+            debtDisplay.textContent = formatWhole(saved.debt)
           }
 
-          if (debt === 0) {       
-            bet = bet * 4
-            money = bet + money
+          if (saved.debt === 0) {       
+            saved.bet = saved.bet * 4
+            saved.money = saved.bet + saved.money
           }
           document.getElementById("win-display").textContent = "You just won x4!!!"
-          document.getElementById('betsize').value =  betwas
-          bet = betwas
-          moneyDisplay.textContent = money
+          document.getElementById('betsize').value =  saved.betwas
+          saved.bet = saved.betwas
+          moneyDisplay.textContent = saved.money
           animateBackground(document.querySelector(".bg-image")), Win.play()
           return
         }
          //If 3 Cherries
          if (slot1Index === `url("images/slot6.png")` && slot2Index === `url("images/slot6.png")` && slot3Index === `url("images/slot6.png")`) {
-          betwas = bet
-          if (debt > 0) {
-            money = money + bet
-            bet = bet * 5
-            debt = debt - bet
-            debtDisplay.textContent = formatWhole(debt)
+          saved.betwas = saved.bet
+          if (saved.debt > 0) {
+            saved.money = saved.money + saved.bet
+            saved.bet = saved.bet * 5
+            saved.debt = saved.debt - saved.bet
+            debtDisplay.textContent = formatWhole(saved.debt)
           }
 
-          if (debt === 0) {
-            bet = bet * 5
-            money = bet + money
+          if (saved.debt === 0) {
+            saved.bet = saved.bet * 5
+            saved.money = saved.bet + saved.money
           }
           document.getElementById("win-display").textContent = "You just won x5!!!"
-          document.getElementById('betsize').value =  betwas
-          bet = betwas
-          moneyDisplay.textContent = money
+          document.getElementById('betsize').value =  saved.betwas
+          saved.bet = saved.betwas
+          moneyDisplay.textContent = saved.money
          animateBackground(document.querySelector(".bg-image")), Win.play()
           return
         }
@@ -443,15 +451,18 @@ function animateBackground4() {
         document.getElementById("win-display").textContent = inspire[Math.floor(Math.random() * inspire.length)]
         animateBackground(document.querySelector(".bg-image1"))
 
+        // Save a variable to local storage
+localStorage.setItem("saved", JSON.stringify(saved));
+
           //loan shark
-          if (money < 1 && loanNum === 0.05) {
+          if (saved.money < 1 && saved.loanNum === 0.05) {
             Defeat.currentTime = 30
             Defeat.play()
           animateBackground3()
           }
 
-          if (money < 1 && loanNum === 0.01) {
-            loanNum = 0.05
+          if (saved.money < 1 && saved.loanNum === 0.01) {
+            saved.loanNum = 0.05
             Defeat.pause()
             debtM.loop = true;
             debtM.play()
@@ -463,8 +474,8 @@ function animateBackground4() {
             document.getElementById("win-display").textContent = "Loan Shark: Hey'a pal. I noticed youse are down again. Now pops always told me to give second chances, so here's yours. 5% per spin this time 'round. Just remember buddy, I will make sure to have my goons pay a visit to youse if youse don't pay your debt. And trust me, it won't be pretty. Youse'll find yourself swimming with the fishes or taking a permanent nap in a concrete pair of shoes at the bottom of the river. So, youse best pay up or youse be wishing you had. Capisce?"
           }
 
-          if (money < 1 && loanNum === 0) {
-            loanNum = 0.01
+          if (saved.money < 1 && saved.loanNum === 0) {
+            saved.loanNum = 0.01
             Defeat.pause()
             debtM.loop = true;
             debtM.play()
