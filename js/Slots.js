@@ -1,6 +1,12 @@
 'use strict';
 
-let saved = {money: 10, debt: 0, bet: 1, betwas: 1, loanNum: 0, first: 1}
+let saved = localStorage.getItem("saved") ? JSON.parse(localStorage.getItem("saved")) : {
+  debt: 0,
+  money: 10,
+  bet: 1,
+  betwas: 1 ,
+  loanNum: 0,
+};
 
 function animateBackground3() { 
   document.querySelector(".dark").classList.remove("animate");
@@ -76,20 +82,12 @@ function animateBackground1() {
 };
 
 document.addEventListener('DOMContentLoaded', function() {
-
-// Retrieve the variable from local storage
-if (saved.first !== 1) {
-saved = JSON.parse(localStorage.getItem("saved"))
-document.getElementById("debt-display").textContent = saved.debt
-document.getElementById("money-display").textContent = saved.money
-document.getElementById('betsize').value = saved.bet
-}
-
+  
   var SlotOn = false;
   var slot1Images = ["images/slot1.png", "images/slot2.png", "images/slot3.png", "images/slot4.png", "images/slot5.png", "images/slot6.png"];
   var slot2Images = ["images/slot1.png", "images/slot2.png", "images/slot3.png", "images/slot4.png", "images/slot5.png", "images/slot6.png"];
   var slot3Images = ["images/slot1.png", "images/slot2.png", "images/slot3.png", "images/slot4.png", "images/slot5.png", "images/slot6.png"];
-  var inspire = ["There is a very easy way to return from a casino with a small fortune; go there with a large one. - Jack Yelton", "Remember this. The house doesn’t beat the player. It just gives him the opportunity to beat himself – Nicholas Dandalos (professional gambler)", "Gambling. The sure way of getting something for nothing – Wilson Mizner (playwright)", "Gambling undermines the moral fiber of society – Gordon B. Hinkley (religious leader and author)", "The best throw of the dice is to throw them away - English Proverb", "There are two great pleasures in gambling; that of winning and that of losing. – French Proverb", "In a bet there is a fool and a thief  – Unknown", "It's hard to walk away from a winning streak, even harder to leave the table when you're on a losing one ― Cara Bertoia"]
+  var inspire = ["There is a very easy way to return from a casino with a small fortune; go there with a large one. - Jack Yelton", "Remember this. The house doesn't beat the player. It just gives him the opportunity to beat himself - Nicholas Dandalos (professional gambler)", "Gambling. The sure way of getting something for nothing - Wilson Mizner (playwright)", "Gambling undermines the moral fiber of society - Gordon B. Hinkley (religious leader and author)", "The best throw of the dice is to throw them away - English Proverb", "There are two great pleasures in gambling; that of winning and that of losing. - French Proverb", "In a bet there is a fool and a thief  - Unknown", "It's hard to walk away from a winning streak, even harder to leave the table when you're on a losing one ― Cara Bertoia"]
   var requestAnimationFrame = 50; // milliseconds
   var slotsSpinning = 3;
   var slot1Index = 0;
@@ -100,6 +98,10 @@ document.getElementById('betsize').value = saved.bet
 const moneyDisplay = document.getElementById("money-display");
   debtDisplay.textContent = formatWhole(saved.debt);
 moneyDisplay.textContent = saved.money;
+
+document.getElementById("debt-display").textContent = saved.debt
+document.getElementById("money-display").textContent = saved.money
+document.getElementById('betsize').value = saved.bet
 
 const betsizeInput = document.getElementById('betsize');
 betsizeInput.addEventListener('input', () => {
@@ -139,7 +141,6 @@ function animateBackground4() {
 };
 
   function Roll() {
-    saved.first = 0
     if (document.getElementById('betsize').value < 1) {
       document.getElementById('betsize').value = 1
     }
@@ -149,7 +150,6 @@ function animateBackground4() {
          if (saved.debt > 100000) {
           animateBackground3()
           }
-          
           if (saved.debt < 0) {
             saved.debt = 0
             saved.loanNum = 0
