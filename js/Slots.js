@@ -164,7 +164,7 @@ function animateBackground4() {
     SlotOn = true;
     rollAudio()
          //loan shark
-         if (saved.debt > 100000) {
+         if (saved.debt > 10000) {
           animateBackground3()
           }
           if (saved.debt < 0) {
