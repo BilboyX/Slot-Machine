@@ -6,6 +6,7 @@ let saved = localStorage.getItem("saved") ? JSON.parse(localStorage.getItem("sav
   bet: 1,
   betwas: 1 ,
   loanNum: 0,
+  cA: 1,
 };
 
 function animateBackground3() { 
@@ -51,6 +52,7 @@ Defeat.volume = 0.3
 SlotsRolling.volume = 0.1
 
 function rollAudio() { 
+  if (saved.cA === 1) {
   Win.pause()
   Defeat.pause()
   Lose.pause()
@@ -59,6 +61,7 @@ function rollAudio() {
   SlotsRolling.currentTime = 0,
   SlotsRolling.loop = false,
   SlotsRolling.play()
+  }
 }
 
 function animateBackground1() {
@@ -88,11 +91,25 @@ document.addEventListener('DOMContentLoaded', function() {
   var slot2Images = ["images/slot1.png", "images/slot2.png", "images/slot3.png", "images/slot4.png", "images/slot5.png", "images/slot6.png"];
   var slot3Images = ["images/slot1.png", "images/slot2.png", "images/slot3.png", "images/slot4.png", "images/slot5.png", "images/slot6.png"];
   var inspire = ["There is a very easy way to return from a casino with a small fortune; go there with a large one. - Jack Yelton", "Remember this. The house doesn't beat the player. It just gives him the opportunity to beat himself - Nicholas Dandalos (professional gambler)", "Gambling. The sure way of getting something for nothing - Wilson Mizner (playwright)", "Gambling undermines the moral fiber of society - Gordon B. Hinkley (religious leader and author)", "The best throw of the dice is to throw them away - English Proverb", "There are two great pleasures in gambling; that of winning and that of losing. - French Proverb", "In a bet there is a fool and a thief  - Unknown", "It's hard to walk away from a winning streak, even harder to leave the table when you're on a losing one ― Cara Bertoia"]
-  var requestAnimationFrame = 50; // milliseconds
+  var timeSync = 50; // milliseconds
   var slotsSpinning = 3;
   var slot1Index = 0;
   var slot2Index = 0;
   var slot3Index = 0;
+    
+  if (saved.cA === 0) {
+    Crank.pause();
+    Lose.pause();
+    Defeat.pause();
+    Win.pause();
+    SlotsRolling.pause();
+    debtM.pause();
+    cut.pause();
+    document.querySelector(".top-right1").classList.add("animate");
+    void document.querySelector(".top-right").offsetWidth;
+    void document.querySelector(".top-right1").offsetWidth;
+    document.querySelector(".top-right").classList.add("animate");
+  }
   
   const debtDisplay = document.getElementById("debt-display");
 const moneyDisplay = document.getElementById("money-display");
@@ -205,7 +222,7 @@ localStorage.setItem("saved", JSON.stringify(saved));
 
   function stopSpinning() {
     slotsSpinning--;
-    SlotsRolling.pause()
+    if (saved.cA === 1) {SlotsRolling.pause()}
         //If 1, 2 or 3 7's
         if (slot1Index === `url("images/slot1.png")` || slot2Index === `url("images/slot1.png")` || slot3Index === `url("images/slot1.png")`) {
           if (slot1Index === `url("images/slot1.png")` && slot2Index === `url("images/slot1.png")` || slot2Index === `url("images/slot1.png")` && slot3Index === `url("images/slot1.png")` || slot1Index === `url("images/slot1.png")` && slot3Index === `url("images/slot1.png")`) {
@@ -226,7 +243,8 @@ localStorage.setItem("saved", JSON.stringify(saved));
                 moneyDisplay.textContent = saved.money
                 document.getElementById('betsize').value =  saved.betwas
                 saved.bet = saved.betwas
-                animateBackground(document.querySelector(".bg-image")), Win.play()
+                animateBackground(document.querySelector(".bg-image"))
+                if (saved.cA === 1) { Win.play()}
                 return
               }
               else if (slot1Index === `url("images/slot1.png")` && slot2Index === `url("images/slot1.png")` || slot2Index === `url("images/slot1.png")` && slot3Index === `url("images/slot1.png")` || slot1Index === `url("images/slot1.png")` && slot3Index === `url("images/slot1.png")`)  
@@ -246,7 +264,8 @@ localStorage.setItem("saved", JSON.stringify(saved));
               document.getElementById('betsize').value =  saved.betwas
               saved.bet = saved.betwas
               moneyDisplay.textContent = saved.money
-              animateBackground(document.querySelector(".bg-image")), Win.play()
+              animateBackground(document.querySelector(".bg-image"))
+              if (saved.cA === 1) { Win.play()}
               return
           }
           else if (slot1Index === `url("images/slot1.png")` || slot2Index === `url("images/slot1.png")` || slot3Index === `url("images/slot1.png")`) 
@@ -266,7 +285,8 @@ localStorage.setItem("saved", JSON.stringify(saved));
           document.getElementById('betsize').value =  saved.betwas
           saved.bet = saved.betwas
           moneyDisplay.textContent = saved.money
-          animateBackground(document.querySelector(".bg-image")), Win.play()
+          animateBackground(document.querySelector(".bg-image"))
+          if (saved.cA === 1) { Win.play()}
           return
         }
 
@@ -288,7 +308,8 @@ localStorage.setItem("saved", JSON.stringify(saved));
           document.getElementById('betsize').value =  saved.betwas
           saved.bet = saved.betwas
           moneyDisplay.textContent = saved.money
-          animateBackground(document.querySelector(".bg-image")), Win.play()
+          animateBackground(document.querySelector(".bg-image"))
+          if (saved.cA === 1) { Win.play()}
           return
         }
         //If 2 Lemons and 1 Bar
@@ -309,7 +330,8 @@ localStorage.setItem("saved", JSON.stringify(saved));
           document.getElementById('betsize').value =  saved.betwas
           saved.bet = saved.betwas
           moneyDisplay.textContent = saved.money
-          animateBackground(document.querySelector(".bg-image")), Win.play()
+          animateBackground(document.querySelector(".bg-image"))
+          if (saved.cA === 1) { Win.play()}
           return
         }
         //If 3 Lemons
@@ -330,7 +352,8 @@ localStorage.setItem("saved", JSON.stringify(saved));
           document.getElementById('betsize').value =  saved.betwas
           saved.bet = saved.betwas
           moneyDisplay.textContent = saved.money
-          animateBackground(document.querySelector(".bg-image")), Win.play()
+          animateBackground(document.querySelector(".bg-image"))
+          if (saved.cA === 1) { Win.play()}
           return
         }
         //If 2 Watermelons 1 Bar
@@ -351,7 +374,8 @@ localStorage.setItem("saved", JSON.stringify(saved));
           document.getElementById('betsize').value =  saved.betwas
           saved.bet = saved.betwas
           moneyDisplay.textContent = saved.money
-          animateBackground(document.querySelector(".bg-image")), Win.play()
+          animateBackground(document.querySelector(".bg-image"))
+          if (saved.cA === 1) { Win.play()}
           return
         }
         //If 3 Watermelons
@@ -372,7 +396,8 @@ localStorage.setItem("saved", JSON.stringify(saved));
           document.getElementById('betsize').value =  saved.betwas
           saved.bet = saved.betwas
           moneyDisplay.textContent = saved.money
-          animateBackground(document.querySelector(".bg-image")), Win.play()
+          animateBackground(document.querySelector(".bg-image"))
+          if (saved.cA === 1) { Win.play()}
           return
         }
         //If 2 Bells 1 Bar
@@ -393,7 +418,8 @@ localStorage.setItem("saved", JSON.stringify(saved));
           document.getElementById('betsize').value =  saved.betwas
           saved.bet = saved.betwas
           moneyDisplay.textContent = saved.money
-          animateBackground(document.querySelector(".bg-image")), Win.play()
+          animateBackground(document.querySelector(".bg-image"))
+          if (saved.cA === 1) { Win.play()}
           return
         }
         //If 3 Bells
@@ -414,7 +440,8 @@ localStorage.setItem("saved", JSON.stringify(saved));
           document.getElementById('betsize').value =  saved.betwas
           saved.bet = saved.betwas
           moneyDisplay.textContent = saved.money
-          animateBackground(document.querySelector(".bg-image")), Win.play()
+          animateBackground(document.querySelector(".bg-image"))
+          if (saved.cA === 1) { Win.play()}
           return
         }
         //If 2 Cherries 1 Bar
@@ -436,7 +463,8 @@ localStorage.setItem("saved", JSON.stringify(saved));
           document.getElementById('betsize').value =  saved.betwas
           saved.bet = saved.betwas
           moneyDisplay.textContent = saved.money
-          animateBackground(document.querySelector(".bg-image")), Win.play()
+          animateBackground(document.querySelector(".bg-image"))
+          if (saved.cA === 1) { Win.play()}
           return
         }
          //If 3 Cherries
@@ -457,7 +485,8 @@ localStorage.setItem("saved", JSON.stringify(saved));
           document.getElementById('betsize').value =  saved.betwas
           saved.bet = saved.betwas
           moneyDisplay.textContent = saved.money
-         animateBackground(document.querySelector(".bg-image")), Win.play()
+         animateBackground(document.querySelector(".bg-image"))
+         if (saved.cA === 1) { Win.play()}
           return
         }
 
@@ -470,23 +499,23 @@ localStorage.setItem("saved", JSON.stringify(saved));
 if (saved.money > 0) {
 Lose.loop = false;
 Lose.currentTime = 0
-  Lose.play()
+if (saved.cA === 1) {Lose.play()}
 }
 
           //loan shark
           if (saved.money < 1 && saved.loanNum === 0.05) {
             Defeat.currentTime = 30
-            Lose.pause()
-            Defeat.play()
+            if (saved.cA === 1) {Lose.pause()}
+            if (saved.cA === 1) {Defeat.play()}
           animateBackground3()
           }
 
           if (saved.money < 1 && saved.loanNum === 0.01) {
             saved.loanNum = 0.05
             localStorage.setItem("saved", JSON.stringify(saved));
-            Lose.pause()
+            if (saved.cA === 1) {Lose.pause()}
             debtM.loop = true;
-            debtM.play()
+            if (saved.cA === 1) { debtM.play()}
             animateBackground(document.querySelector(".bg-image2"))
             document.querySelector(".bg-image2").classList.remove("animate1");
             document.querySelector("#debt-button").classList.remove("animate1");
@@ -498,9 +527,9 @@ Lose.currentTime = 0
           if (saved.money < 1 && saved.loanNum === 0) {
             saved.loanNum = 0.01
             localStorage.setItem("saved", JSON.stringify(saved));
-            Lose.pause()
+            if (saved.cA === 1) {Lose.pause()}
             debtM.loop = true;
-            debtM.play()
+            if (saved.cA === 1) {debtM.play()}
             animateBackground(document.querySelector(".bg-image2"))
             animateBackground2()
             animateBackground4()
@@ -577,10 +606,37 @@ Lose.currentTime = 0
           // set the background position of the slot to shift the image downwards
           slot.style.backgroundPosition = `0 ${-currentImageIndex * slot.clientHeight}px`;
         }
-      }, requestAnimationFrame);
+      }, timeSync);
     });
   }
 });
+
+function changeAudio() {
+
+
+  //mute
+  if (saved.cA === 1) {
+    Crank.pause();
+    Lose.pause();
+    Defeat.pause();
+    Win.pause();
+    SlotsRolling.pause();
+    debtM.pause();
+    cut.pause();
+    saved.cA = 0
+    document.querySelector(".top-right1").classList.add("animate");
+    void document.querySelector(".top-right").offsetWidth;
+    void document.querySelector(".top-right1").offsetWidth;
+    document.querySelector(".top-right").classList.add("animate");
+  }
+  //unmute
+  else {
+    saved.cA = 1
+    document.querySelector(".top-right").classList.remove("animate");
+    void document.querySelector(".top-right1").offsetWidth;
+    void document.querySelector(".top-right").offsetWidth;
+    document.querySelector(".top-right1").classList.remove("animate")}
+}
 
 function ez (){
   animateBackground1()
