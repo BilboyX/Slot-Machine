@@ -729,33 +729,27 @@ function loadWin() {
 }
 
 let startTime = 0;
-let elapsedTime = 0;
-let timerInterval;
 
 function startTimer() {
-  startTime = Date.now() - elapsedTime;
-  timerInterval = setInterval(function printTime() {
-    elapsedTime = Date.now() - startTime;
-  }, 10);
+  startTime = Date.now()
+  localStorage.setItem('time', startTime)
 }
 
 function stopTimer() {
-  document.getElementById("stopwatch").textContent = formatTime(elapsedTime);
-  clearInterval(timerInterval);
+  let elapsedSeconds = Math.floor((Date.now() - localStorage.getItem('time')));
+  document.getElementById("stopwatch").textContent = formatTime1(elapsedSeconds)
 }
 
-function resetTimer() {
-  clearInterval(timerInterval);
-  elapsedTime = 0;
-}
-
-function formatTime(milliseconds) {
-  let time = new Date(milliseconds);
-  let hours = time.getUTCHours().toString().padStart(2, "0");
-  let minutes = time.getUTCMinutes().toString().padStart(2, "0");
-  let seconds = time.getUTCSeconds().toString().padStart(2, "0");
-  let ms = time.getUTCMilliseconds().toString().padStart(3, "0");
-  return `${hours}:${minutes}:${seconds}.${ms}`;
+function formatTime1(elapsedSeconds) {
+  let date = elapsedSeconds;
+  let ma = date.toString();
+  let ms = ma.substr(ma.length - 3, 2);
+  let seconds = Math.floor((date / 1000) % 60);
+  let minutes = Math.floor((date / 1000 / 60) % 60);
+  let hours = Math.floor((date / (1000 * 60 * 60)) % 24);
+  let days = Math.floor(date / (1000 * 60 * 60 * 24));
+  
+  return `${days}:${hours}:${minutes}:${seconds}.${ms}`
 }
 
 function returnTo() {

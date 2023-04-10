@@ -51,6 +51,8 @@
   #easy-button {
     z-index: 100;
     cursor: pointer;
+    top: 380px;
+    position: absolute;
   }
   
   .hover-box {
@@ -99,6 +101,8 @@
   #normal-button {
    z-index: 100;
    cursor: pointer;
+   top: 400px;
+   position: absolute;
   }
   
   #normal-button:hover + .hover-box1 {
@@ -108,6 +112,8 @@
   #hard-button {
     z-index: 100;
     cursor: pointer;
+    top: 420px;
+    position: absolute;
   }
 
   #hard-button:hover + .hover-b {
