@@ -17,6 +17,14 @@ if (saved.start === true) {
   }, 4000);  
   setTimeout(() => {
     document.querySelector("html").classList.add("animate1");
+    if (saved.cA === 1) {Opening.loop = true,
+    Opening.play().then(()=>{
+  }
+  ).catch(error=>{
+    console.log('sad );')
+  }
+  );
+}
     }, 5000);
     setTimeout(() => {
       document.querySelector("html").classList.add("animate2");
@@ -50,6 +58,8 @@ function animateBackground3() {
     saved.betwas = 1 
     saved.loanNum = 0
     saved.first = 1
+    saved.start = true
+    saved.mode = 0
     localStorage.setItem("saved", JSON.stringify(saved));
     location.reload(true)
   }, 12000);
@@ -62,6 +72,8 @@ var Win = new Audio('audio/Win!.mp3');
 var SlotsRolling = new Audio('audio/Slots Rolling.mp3');
 var debtM = new Audio('audio/Debt.mp3');
 var cut = new Audio('audio/cut.mp3');
+var Opening = new Audio('audio/Opening.mp3');
+var Selected = new Audio('audio/Selected.mp3');
 Defeat.volume = 0.3
 SlotsRolling.volume = 0.1
 
@@ -89,6 +101,10 @@ function animateBackground1() {
   void  document.querySelector(".container").offsetWidth;
   document.querySelector(".container").classList.add("animate1");
   document.getElementById("win-display").textContent = "Loan Shark: Good"
+  document.querySelector(".top-right").classList.remove("animate1");
+  void  document.querySelector(".top-right").offsetWidth;
+  document.querySelector(".top-right1").classList.remove("animate1");
+  void  document.querySelector(".top-right1").offsetWidth;
   saved.debt = saved.debt + 1000
   saved.money = 1000
   document.getElementById("money-display").textContent = saved.money
@@ -96,6 +112,27 @@ function animateBackground1() {
   saved.bet = 1
   document.getElementById('betsize').value = 1
   localStorage.setItem("saved", JSON.stringify(saved));
+};
+
+function animateBackground(bgClass) {
+  bgClass.classList.remove("animate");
+  void bgClass.offsetWidth;
+  bgClass.classList.add("animate");
+  if (bgClass === document.querySelector(".bg-image2")) {
+  document.querySelector(".top-right1").classList.add("animate1");
+  document.querySelector(".top-right").classList.add("animate1");}
+};
+
+function animateBackground2() { 
+  document.querySelector("#debt-button").classList.remove("animate");
+  void document.querySelector("#debt-button").offsetWidth;
+  document.querySelector("#debt-button").classList.add("animate");
+};
+
+function animateBackground4() {
+  document.querySelector(".container").classList.remove("animate");
+  void  document.querySelector(".container").offsetWidth;
+  document.querySelector(".container").classList.add("animate");
 };
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -159,24 +196,6 @@ betsizeInput.addEventListener('input', () => {
   }
 });
 
-function animateBackground(bgClass) {
-  const bgImage = bgClass;
-  bgImage.classList.remove("animate");
-  void bgImage.offsetWidth;
-  bgImage.classList.add("animate");
-};
-
-function animateBackground2() { 
-  document.querySelector("#debt-button").classList.remove("animate");
-  void document.querySelector("#debt-button").offsetWidth;
-  document.querySelector("#debt-button").classList.add("animate");
-};
-
-function animateBackground4() {
-  document.querySelector(".container").classList.remove("animate");
-  void  document.querySelector(".container").offsetWidth;
-  document.querySelector(".container").classList.add("animate");
-};
 
   function Roll() {
     if (document.getElementById('betsize').value < 1) {
@@ -185,9 +204,6 @@ function animateBackground4() {
     SlotOn = true;
     rollAudio()
          //loan shark
-         if (saved.debt > 10000) {
-          animateBackground3()
-          }
           if (saved.debt < 0) {
             saved.debt = 0
             saved.loanNum = 0
@@ -242,6 +258,13 @@ function animateBackground4() {
         if (saved.mode === 2 && saved.money >= 1000000) {
           loadWin()
         }
+        if (saved.debt > 10000) {
+          Defeat.currentTime = 30
+          Lose.pause()
+          Win.pause()
+          if (saved.cA === 1) {Defeat.play()}
+          return animateBackground3()
+          }
         // Save a variable to local storage
 localStorage.setItem("saved", JSON.stringify(saved));
       });
@@ -575,6 +598,12 @@ localStorage.setItem("saved", JSON.stringify(saved));
             if (saved.mode === 2 && saved.money >= 1000000) {
               loadWin()
             }
+
+            if (saved.debt > 10000) {
+              Defeat.currentTime = 30
+              if (saved.cA === 1) {Defeat.play()}
+              return animateBackground3()
+              }
   }
 
 
@@ -683,6 +712,9 @@ function ez(){
 }
 
 function gameStart(){
+  if (saved.cA === 1) {Opening.pause()
+  Selected.loop = false
+  Selected.play()}
   document.querySelector(".cont").classList.remove("animate");
   void document.querySelector(".cont").offsetWidth;
   document.querySelector("html").classList.remove("animate2");
