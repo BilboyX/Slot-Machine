@@ -116,6 +116,7 @@ function animateBackground1() {
 
 function animateBackground(bgClass) {
   bgClass.classList.remove("animate");
+  bgClass.classList.remove("animate1");
   void bgClass.offsetWidth;
   bgClass.classList.add("animate");
   if (bgClass === document.querySelector(".bg-image2")) {
@@ -124,12 +125,14 @@ function animateBackground(bgClass) {
 };
 
 function animateBackground2() { 
-  document.querySelector("#debt-button").classList.remove("animate");
+  document.querySelector("#debt-button").classList.remove("animate")
+  document.querySelector("#debt-button").classList.remove("animate1");
   void document.querySelector("#debt-button").offsetWidth;
   document.querySelector("#debt-button").classList.add("animate");
 };
 
 function animateBackground4() {
+  document.querySelector(".container").classList.remove("animate1");
   document.querySelector(".container").classList.remove("animate");
   void  document.querySelector(".container").offsetWidth;
   document.querySelector(".container").classList.add("animate");
@@ -203,15 +206,6 @@ betsizeInput.addEventListener('input', () => {
     }
     SlotOn = true;
     rollAudio()
-         //loan shark
-          if (saved.debt < 0) {
-            saved.debt = 0
-            saved.loanNum = 0
-            document.getElementById("debt-display").textContent = 0
-            if (saved.mode === 3) {
-              loadWin()
-            }
-          }
 
     slotsSpinning = 3;
     if (saved.debt > 0) {
@@ -267,6 +261,14 @@ betsizeInput.addEventListener('input', () => {
           }
         // Save a variable to local storage
 localStorage.setItem("saved", JSON.stringify(saved));
+if (saved.debt < 0) {
+  saved.debt = 0
+  saved.loanNum = 0
+  document.getElementById("debt-display").textContent = 0
+  if (saved.mode === 3) {
+    loadWin()
+  }
+}
       });
   }
 
@@ -603,6 +605,14 @@ localStorage.setItem("saved", JSON.stringify(saved));
               Defeat.currentTime = 30
               if (saved.cA === 1) {Defeat.play()}
               return animateBackground3()
+              }
+              if (saved.debt < 0) {
+                saved.debt = 0
+                saved.loanNum = 0
+                document.getElementById("debt-display").textContent = 0
+                if (saved.mode === 3) {
+                  loadWin()
+                }
               }
   }
 
