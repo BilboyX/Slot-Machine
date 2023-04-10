@@ -560,7 +560,7 @@ localStorage.setItem("saved", JSON.stringify(saved));
           animateBackground3()
           }
 
-          if (saved.money < 1 && saved.loanNum === 0.01) {
+          if (saved.money < 1 && saved.loanNum === 0.01 || saved.money < 1 && saved.loanNum === 0.2) {
             saved.loanNum = 0.05
             localStorage.setItem("saved", JSON.stringify(saved));
             if (saved.cA === 1) {Lose.pause()}
@@ -579,7 +579,7 @@ localStorage.setItem("saved", JSON.stringify(saved));
             document.getElementById("win-display").textContent = "Loan Shark: Hey'a pal. I noticed youse are down again. Now pops always told me to give second chances, so here's yours. 5% per spin this time 'round. Just remember buddy, I will make sure to have my goons pay a visit to youse if youse don't pay your debt. And trust me, it won't be pretty. Youse'll find yourself swimming with the fishes or taking a permanent nap in a concrete pair of shoes at the bottom of the river. So, youse best pay up or youse be wishing you had. Capisce?"
             }}
 
-          if (saved.money < 1 && saved.loanNum === 0 && saved.mode !== 1) {
+          if (saved.money < 1 && saved.loanNum === 0 && saved.mode === 2 || saved.money < 1 && saved.loanNum === 0.1 && saved.mode === 3) {
             saved.loanNum = 0.01
             localStorage.setItem("saved", JSON.stringify(saved));
             if (saved.cA === 1) {Lose.pause()}
