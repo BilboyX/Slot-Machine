@@ -2,6 +2,121 @@ html {
   background-color: black;
 }
 
+html.animate1 {
+  animation: flashbang 1s ease;
+  animation-iteration-count: 1;
+}
+
+html.animate2 {
+  background-image: url('Coins2.gif');
+  background-repeat: repeat;
+  background-size: cover;
+}
+
+@keyframes flashbang {
+  0% { background-color: black }
+  50% { background-color: gold; }
+  100% { background-color: black;}
+}
+
+.cont.animate1 {
+  display: none;
+}
+
+.cont.animate2 {
+  display: none;
+}
+
+.WinningNorm {
+  display: none;
+  color: white;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.WinningNorm.animate {
+  animation: fadeIn 4s ease;
+  animation-iteration-count: 1;
+  display: block;
+}
+
+.WinningNight {
+  display: none;
+  color: white;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.WinningNight.animate {
+  animation: fadeIn 4s ease;
+  animation-iteration-count: 1;
+  display: block;
+}
+
+
+
+.start {
+  opacity: 0;
+}
+
+.start.animate {
+  animation: fadeIn 4s ease;
+  animation-iteration-count: 1;
+  opacity: 1;
+}
+
+.Easy {
+  opacity: 0;
+  display: none;
+  color: white;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.Easy.animate {
+  animation: fadeInOut 4s ease;
+  animation-iteration-count: 1;
+  display: block;
+}
+
+.Normal {
+  opacity: 0;
+  display: none;
+  color: white;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.Normal.animate {
+  animation: fadeInOut 4s ease;
+  animation-iteration-count: 1;
+  display: block;
+}
+
+.Hard {
+  opacity: 0;
+  display: none;
+  color: white;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.Hard.animate {
+  animation: fadeInOut 4s ease;
+  animation-iteration-count: 1;
+  display: block;
+}
+
 .shh {
 opacity: 0;
 z-index: -10;
@@ -184,6 +299,27 @@ html.animate {
   flex-direction: column;
   }
 
+  .cont {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    opacity: 0;
+    }
+
+  .cont.animate {
+    animation: fadeIn1 2.3s ease;
+    animation-iteration-count: 1;
+    opacity: 1;
+  }
+
+  @keyframes fadeIn1 {
+    0% { opacity: 0; }
+    50% { opacity: 1; }
+    66% { opacity: 0; }
+    100% { opacity: 1; }
+  }
+
   .container img:last-child {
     position: absolute;
 margin-top: -500px; /* adjust as needed */
@@ -245,6 +381,33 @@ align-self: center;
       margin-left: -175px;
       z-index: -100;
     } 
+
+    .starttext {
+      z-index: 100;
+      display: block;
+      color: white;
+      animation: slideAcross 4s ease-in-out;
+      animation-iteration-count: 1;
+      opacity: 0;
+      position: absolute;
+      top: 400px;
+    }
+
+    .starttext.animate {
+      display: none;
+    }
+
+    @keyframes slideAcross {
+      0% {
+       left: -10px; opacity: 0;
+      }
+      50% {
+       left: 700px; opacity: 1;
+      }
+      100% {
+        left: 1400px; opacity: 0;
+      }
+    }
 
     .sidebar {
       position: fixed;

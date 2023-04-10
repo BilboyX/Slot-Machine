@@ -7,7 +7,21 @@ let saved = localStorage.getItem("saved") ? JSON.parse(localStorage.getItem("sav
   betwas: 1 ,
   loanNum: 0,
   cA: 1,
+  start: true,
+  mode: 0,
 };
+
+if (saved.start === true) {
+  setTimeout(() => {
+  document.querySelector(".cont").classList.add("animate");
+  }, 4000);  
+  setTimeout(() => {
+    document.querySelector("html").classList.add("animate1");
+    }, 5000);
+    setTimeout(() => {
+      document.querySelector("html").classList.add("animate2");
+      }, 6000);
+}
 
 function animateBackground3() { 
   document.querySelector(".dark").classList.remove("animate");
@@ -85,6 +99,13 @@ function animateBackground1() {
 };
 
 document.addEventListener('DOMContentLoaded', function() {
+  
+  if (saved.start === false) {
+    document.querySelector(".starttext").classList.add("animate");
+    document.querySelector(".start").classList.add("animate");
+    document.querySelector(".cont").classList.add("animate1");
+  }
+
   
   var SlotOn = false;
   var slot1Images = ["images/slot1.png", "images/slot2.png", "images/slot3.png", "images/slot4.png", "images/slot5.png", "images/slot6.png"];
@@ -170,7 +191,11 @@ function animateBackground4() {
           if (saved.debt < 0) {
             saved.debt = 0
             saved.loanNum = 0
-            document.getElementById("debt-display").textContent = 0}
+            document.getElementById("debt-display").textContent = 0
+            if (saved.mode === 3) {
+              loadWin()
+            }
+          }
 
     slotsSpinning = 3;
     if (saved.debt > 0) {
@@ -214,7 +239,9 @@ function animateBackground4() {
           document.getElementById('betsize').value = saved.money
           saved.bet = saved.money
         }
-      
+        if (saved.mode === 2 && saved.money >= 1000000) {
+          loadWin()
+        }
         // Save a variable to local storage
 localStorage.setItem("saved", JSON.stringify(saved));
       });
@@ -494,13 +521,13 @@ localStorage.setItem("saved", JSON.stringify(saved));
         animateBackground(document.querySelector(".bg-image1"))
 
         // Save a variable to local storage
-localStorage.setItem("saved", JSON.stringify(saved));
+        localStorage.setItem("saved", JSON.stringify(saved));
 
-if (saved.money > 0) {
-Lose.loop = false;
-Lose.currentTime = 0
-if (saved.cA === 1) {Lose.play()}
-}
+        if (saved.money > 0) {
+        Lose.loop = false;
+        Lose.currentTime = 0
+        if (saved.cA === 1) {Lose.play()}
+        }
 
           //loan shark
           if (saved.money < 1 && saved.loanNum === 0.05) {
@@ -521,10 +548,15 @@ if (saved.cA === 1) {Lose.play()}
             document.querySelector("#debt-button").classList.remove("animate1");
             animateBackground2()
             animateBackground4()
+            if (saved.mode === 3) {
+              saved.loanNum = 0.3
+              document.getElementById("win-display").textContent = "Loan Shark: Hey'a pal. I noticed youse are down again. Now pops always told me demons give second chances, so here's your fiery hell. 30% per spin this time 'round. Just remember buddy, I will pummel you to a pulp, ditch youse in who knows where and break a thumb or two while I'm at it. So, youse best pay up or youse be wishing you had. Capisce?"
+            }
+            else {
             document.getElementById("win-display").textContent = "Loan Shark: Hey'a pal. I noticed youse are down again. Now pops always told me to give second chances, so here's yours. 5% per spin this time 'round. Just remember buddy, I will make sure to have my goons pay a visit to youse if youse don't pay your debt. And trust me, it won't be pretty. Youse'll find yourself swimming with the fishes or taking a permanent nap in a concrete pair of shoes at the bottom of the river. So, youse best pay up or youse be wishing you had. Capisce?"
-          }
+            }}
 
-          if (saved.money < 1 && saved.loanNum === 0) {
+          if (saved.money < 1 && saved.loanNum === 0 && saved.mode !== 1) {
             saved.loanNum = 0.01
             localStorage.setItem("saved", JSON.stringify(saved));
             if (saved.cA === 1) {Lose.pause()}
@@ -533,8 +565,16 @@ if (saved.cA === 1) {Lose.play()}
             animateBackground(document.querySelector(".bg-image2"))
             animateBackground2()
             animateBackground4()
+            if (saved.mode === 3) {
+              saved.loanNum = 0.2
+              document.getElementById("win-display").textContent = "Loan Shark: Hey'a pal. I noticed youse are down quite a bit. You like someone who enjoys pain, so here's the deal. I'll give youse a free $1000! All youse gotta do is pay it back. Now time is money so let's say I's increase that debt of yours by 20% per spin? We got a deal?"
+            }
+            else {
             document.getElementById("win-display").textContent = "Loan Shark: Hey'a pal. I noticed youse are down quite a bit. How 'bouts I string ya a deal? I'll give youse a free $1000! All youse gotta do is pay it back. Now time is money so let's say I's increase that debt of yours by 1% per spin? We got a deal?"
-          }
+            }}
+            if (saved.mode === 2 && saved.money >= 1000000) {
+              loadWin()
+            }
   }
 
 
@@ -638,6 +678,94 @@ function changeAudio() {
     document.querySelector(".top-right1").classList.remove("animate")}
 }
 
-function ez (){
+function ez(){
   animateBackground1()
+}
+
+function gameStart(){
+  document.querySelector(".cont").classList.remove("animate");
+  void document.querySelector(".cont").offsetWidth;
+  document.querySelector("html").classList.remove("animate2");
+  void document.querySelector("html").offsetWidth;
+  if (saved.mode === 1) {
+    document.querySelector(".Easy").classList.add("animate");
+    saved.money = 1e100
+  }
+  if (saved.mode === 2) {
+    document.querySelector(".Normal").classList.add("animate");
+  }
+  if (saved.mode === 3) {
+    document.querySelector(".Hard").classList.add("animate");
+    saved.debt = 1000
+    saved.money = 500
+    saved.loanNum = 0.1
+  }
+
+  setTimeout(() => {
+    document.querySelector(".Easy").classList.remove("animate");
+    void document.querySelector(".Easy").offsetWidth;
+    document.querySelector(".Normal").classList.remove("animate");
+    void document.querySelector(".Normal").offsetWidth;
+    document.querySelector(".Hard").classList.remove("animate");
+    void document.querySelector(".Hard").offsetWidth;
+    document.querySelector(".cont").classList.add("animate1");
+    document.querySelector(".start").classList.add("animate")
+    }, 4000);
+
+    document.getElementById("money-display").textContent = saved.money
+  document.getElementById("debt-display").textContent = formatWhole(saved.debt)
+  startTimer()
+  localStorage.setItem("saved", JSON.stringify(saved));
+}
+
+function loadWin() {
+  stopTimer()
+  document.querySelector(".start").classList.remove("animate");
+  void document.querySelector(".start").offsetWidth;
+  if (saved.mode === 2) {
+  document.querySelector(".WinningNorm").classList.add("animate")}
+  if (saved.mode === 3) {
+    document.querySelector(".WinningNight").classList.add("animate")}
+}
+
+let startTime = 0;
+let elapsedTime = 0;
+let timerInterval;
+
+function startTimer() {
+  startTime = Date.now() - elapsedTime;
+  timerInterval = setInterval(function printTime() {
+    elapsedTime = Date.now() - startTime;
+  }, 10);
+}
+
+function stopTimer() {
+  document.getElementById("stopwatch").textContent = formatTime(elapsedTime);
+  clearInterval(timerInterval);
+}
+
+function resetTimer() {
+  clearInterval(timerInterval);
+  elapsedTime = 0;
+}
+
+function formatTime(milliseconds) {
+  let time = new Date(milliseconds);
+  let hours = time.getUTCHours().toString().padStart(2, "0");
+  let minutes = time.getUTCMinutes().toString().padStart(2, "0");
+  let seconds = time.getUTCSeconds().toString().padStart(2, "0");
+  let ms = time.getUTCMilliseconds().toString().padStart(3, "0");
+  return `${hours}:${minutes}:${seconds}.${ms}`;
+}
+
+function returnTo() {
+  saved.debt = 0;
+  saved.money = 10;
+  saved.bet = 1;
+  saved.betwas = 1;
+  saved.loanNum = 0;
+  saved.mode = 0;
+  saved.start = true;
+  localStorage.setItem("saved", JSON.stringify(saved));
+  location.reload(true)
 }

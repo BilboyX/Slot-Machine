@@ -47,3 +47,69 @@
     margin-right: 475px;
     font-weight: bold;
   }
+
+  #easy-button {
+    z-index: 100;
+    cursor: pointer;
+  }
+  
+  .hover-box {
+    display: none;
+    background-color: #fff;
+    padding: 10px;
+    border: 1px solid #ccc;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+    z-index: 1;
+  }
+
+  .hover-box1 {
+    display: none;
+    background-color: #fff;
+    padding: 10px;
+    border: 1px solid #ccc;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+    z-index: 1;
+  }
+
+  .hover-b {
+    display: none;
+    background-color: #fff;
+    padding: 10px;
+    border: 1px solid #ccc;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+    z-index: 1;
+  }
+
+  #return-button {
+    z-index: 1000000000000;
+    position: absolute;
+    margin-left: -70px;
+    cursor: pointer;
+  }
+
+  #return-button1 {
+    cursor: pointer;
+  }
+
+
+  #easy-button:hover + .hover-box {
+    display: block;
+  }
+
+  #normal-button {
+   z-index: 100;
+   cursor: pointer;
+  }
+  
+  #normal-button:hover + .hover-box1 {
+    display: block;
+  }
+
+  #hard-button {
+    z-index: 100;
+    cursor: pointer;
+  }
+
+  #hard-button:hover + .hover-b {
+    display: block;
+  }

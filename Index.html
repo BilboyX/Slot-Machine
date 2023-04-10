@@ -13,6 +13,42 @@
 
 </head>
 <body>
+  <div class="WinningNorm">
+    <h1>You beat Normal mode in:</h1>
+    <h1 id="stopwatch">00:00:00</h1>
+    <button onclick="returnTo()" id="return-button">Return To Main Menu</button>
+  </div>
+  
+  <div class="WinningNight">
+    <h1>You beat Nightmare mode in:</h1>
+    <h1 id="stopwatch">00:00:00</h1>
+    <button onclick="returnTo()" id="return-button">Return To Main Menu</button>
+  </div>
+
+  <div class="hide">
+  <div class="Easy">
+  <h2>Peaceful</h2>
+  <span>Goal: Have fun. <i>Very difficult.</i></span>
+  </div>
+  <div class="Normal"><h2>Normal</h2>
+  <span>Goal: Become rich. (1mil)</span>
+  </div>
+  <div class="Hard">
+  <h2>Nightmare</h2>
+  <span>Goal: Beat debt.</span>
+  </div></div>
+  
+  <span class="starttext">Bilboy presents...</span>
+ 
+  <div class="cont">
+  <img src="images/Title.png" alt="Title">
+  <button onclick="saved.mode = 1, saved.start = false, gameStart()" id="easy-button">Peaceful</button>
+  <div class="hover-box">Beginner's Luck. They gotta hook you in somehow. Infinite money glitch???</div>
+  <button onclick="saved.mode = 2, saved.start = false, gameStart()" id="normal-button">Normal</button>
+  <div class="hover-box1">You're a certified whale! This is how the game was intended to be played. Hell, I'll throw in 10$ to get you started.</div>
+  <button onclick="saved.mode = 3, saved.start = false, gameStart()" id="hard-button">Nightmare</button>
+  <div class="hover-b">The gambler's fallacy. Immediate 1k debt + 10% interest per spin. Have fun! And let's say uhhhhh, 500$ to start off with. Oh btw you don't want more than 10k debt... trust me.</div></div>
+  <div class="start">
   <div class="dark">
 
     <div class="top-right">
@@ -55,6 +91,8 @@
     <li><img src="images/slot1.png" height="20" width="15" alt="Slot1"> = x2</li>
     <li><img src="images/slot1.png" height="20" width="15" alt="Slot1"><img src="images/slot1.png" height="20" width="15" alt="Slot1"> = x70</li>
     <li><img src="images/slot1.png" height="20" width="15" alt="Slot1"><img src="images/slot1.png" height="20" width="15" alt="Slot1"><img src="images/slot1.png" height="20" width="15" alt="Slot1"> = x500</li>
+  
+    <button onclick="returnTo()" id="return-button1">Return To Main Menu</button>
   </ul>
 
   <footer>
@@ -69,9 +107,11 @@
     <div class="footer-right">
       <span>Balance: $</span><span id="money-display"></span><br>
       <span>Debt: -$</span><span id="debt-display"></span>
+   
     </div>
    
   </footer>
+</div>
 </div>
 <div class="bg-image2"></div>
 <div class="bg-image1"></div>
