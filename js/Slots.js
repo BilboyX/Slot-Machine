@@ -249,7 +249,7 @@ betsizeInput.addEventListener('input', () => {
           document.getElementById('betsize').value = saved.money
           saved.bet = saved.money
         }
-        if (saved.mode === 2 && saved.money >= 1000000) {
+        if (saved.mode === 2 && saved.money >= 10000) {
           loadWin()
         }
         if (saved.debt > 10000) {
