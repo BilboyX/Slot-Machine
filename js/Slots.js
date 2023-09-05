@@ -151,7 +151,26 @@ document.addEventListener('DOMContentLoaded', function() {
   var slot1Images = ["images/slot1.png", "images/slot2.png", "images/slot3.png", "images/slot4.png", "images/slot5.png", "images/slot6.png"];
   var slot2Images = ["images/slot1.png", "images/slot2.png", "images/slot3.png", "images/slot4.png", "images/slot5.png", "images/slot6.png"];
   var slot3Images = ["images/slot1.png", "images/slot2.png", "images/slot3.png", "images/slot4.png", "images/slot5.png", "images/slot6.png"];
-  var inspire = ["There is a very easy way to return from a casino with a small fortune; go there with a large one. - Jack Yelton", "Remember this. The house doesn't beat the player. It just gives him the opportunity to beat himself - Nicholas Dandalos (professional gambler)", "Gambling. The sure way of getting something for nothing - Wilson Mizner (playwright)", "Gambling undermines the moral fiber of society - Gordon B. Hinkley (religious leader and author)", "The best throw of the dice is to throw them away - English Proverb", "There are two great pleasures in gambling; that of winning and that of losing. - French Proverb", "In a bet there is a fool and a thief  - Unknown", "It's hard to walk away from a winning streak, even harder to leave the table when you're on a losing one ― Cara Bertoia"]
+ 
+  var inspire = ["There is a very easy way to return from a casino with a small fortune; go there with a large one. - Jack Yelton", 
+  "Remember this. The house doesn't beat the player. It just gives him the opportunity to beat himself - Nicholas Dandalos (professional gambler)", 
+  "Gambling. The sure way of getting something for nothing - Wilson Mizner (playwright)", 
+  "Gambling undermines the moral fiber of society - Gordon B. Hinkley (religious leader and author)", 
+  "The best throw of the dice is to throw them away - English Proverb", 
+  "There are two great pleasures in gambling; that of winning and that of losing. - French Proverb", 
+  "In a bet there is a fool and a thief - Unknown", 
+  "It's hard to walk away from a winning streak, even harder to leave the table when you're on a losing one - Cara Bertoia (writer)",
+  "A Gambler is nothing but a man who makes his living out of false hope - William Bolitho (South African journalist)",
+  "There are many harsh leasons to be learned from the gambling experience, but the harshest one of all is the difference between having fun and being smart - Hunter S. Thompson (American journalist)",
+  "Show me a gambler, I'll show you a loser - Mario Puzo (American author and screenwriter)",
+  "The safe way to double your money is to fold it  once and put it in your pocket - Kin Hubbard (American cartoonist)",
+  "Gambling is a disease of barbarians superficially civilized - William Ralph Inge (English author)",
+  "The only sure thing about luck is that it will change - Bret Harte (American short story writer and poet)",
+  "The only man who makes money following the races is the one who does it with a broom and shovel - Elbert Hubbard (American writer, publisher, artist, and philosopher)",
+  "Hoping to recoup is what ruins the gambler - Irish proverb"
+]
+ 
+ 
   var timeSync = 50; // milliseconds
   var slotsSpinning = 3;
   var slot1Index = 0;
